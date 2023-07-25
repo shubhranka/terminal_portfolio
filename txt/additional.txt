@@ -1,0 +1,3 @@
+Technical Skills    : Javascript, NodeJs, SDLC, OOP/Functional Programming, RestAPI, Agile, Relational, Non-Relational Databases,
+Languages           : English, Hindi
+Achievements        : Shortlisted for AGRI Hackathon, Shortlisted for SIH, National Chess Player

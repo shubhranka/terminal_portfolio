@@ -87,3 +87,9 @@ body {
     max-width: 70%;
     caret-shape: block;
 }
+
+
+/* Create nice scrollbal */
+#terminal_container::-webkit-scrollbar {
+    width: 10px;
+}
