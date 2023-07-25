@@ -7,3 +7,9 @@ experience  : Display my work experience
 projects    : Display my completed and working projects
 activites   : Display my extracurricular activities
 additional  : Display my additional skills
+bold        : Toggle bold text
+animate     : Toggle animate text
+random_theme: Toggle random theme
+clear       : Clear the screen
+
+It does maths also try 49*49

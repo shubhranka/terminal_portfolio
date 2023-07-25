@@ -1,4 +1,4 @@
-const commands = ['about', 'pic', 'education', 'experience', 'projects', 'activities', 'additional', 'help'];
+const commands = ['about', 'pic', 'education', 'experience', 'projects', 'activities', 'additional', 'help', 'bold','animate','random_theme','clear'];
 const history = [];
 let upIndex = 0;
 let animate = false;
@@ -6,6 +6,8 @@ let side_bar_width_percentage = 0;
 let bold = false
 
 let pixedPerChar = 6.5;
+
+const two_color_contrast_themes = [["#00203FFF", "#ADEFD1FF"], ["#0B0033FF", "#F9F871FF"],["#00539C","#EEA47F"],["#2F3C7E","#FBEAEB"],["#F96167","#F9E795"],["#CCF381","#4831D4"],["#E2D1F9","#317773"],["#990011","#FCF6F5"]]
 
 // Add text character by character to the given ele
 async function addText(ele, text) {
@@ -22,52 +24,6 @@ async function addText(ele, text) {
     await new Promise(resolve => setTimeout(resolve, text.length * 10));
     clearInterval(interval);
 }
-
-bold_button.addEventListener('click', function () {
-    if(bold){
-        bold = false;
-        bold_button.classList.remove('active_button');
-        pixedPerChar = 6.5;
-        document.querySelector('body').style.fontWeight = 'normal';
-    }else{
-        bold = true;
-        bold_button.classList.add('active_button');
-        pixedPerChar = 8;
-        document.querySelector('body').style.fontWeight = 'bold';
-    }
-});
-
-// Button clicks
-animate_button.addEventListener('click', function () {
-    if(animate){
-        animate = false;
-        animate_button.classList.remove('active_button');
-    }else{
-        animate = true;
-        animate_button.classList.add('active_button');
-    }
-});
-
-// Side bar cross work
-side_bar_close_button.addEventListener('click', function () {
-    side_bar.classList.remove("width_20_percent");
-    side_bar.style.right = "-"+side_bar_width_percentage+"%";
-    side_bar_close_button.style.display = "none";
-});
-
-// Side bar circle work
-side_bar_cirlce.addEventListener('click', function () {
-    if (side_bar.classList.contains("width_20_percent")) {
-        side_bar.classList.remove("width_20_percent");
-        side_bar.style.right = "-"+side_bar_width_percentage+"%";
-        side_bar_close_button.style.display = "none";
-    } else {
-        side_bar.classList.add("width_20_percent");
-        side_bar_close_button.style.display = "block";
-        side_bar.style.right = "0px";
-
-    }
-});
 
 // Read the pic.txt file return text
 async function readTextFile(file) {
@@ -191,9 +147,6 @@ async function generateDiv(s) {
 
 terminal_container.addEventListener('click', function () {
     terminal_input.focus();
-    side_bar.classList.remove("width_20_percent");
-    side_bar.style.right = "-"+side_bar_width_percentage+"%";
-    side_bar_close_button.style.display = "none";
 });
 
 window.onload = async function () {
@@ -213,10 +166,15 @@ window.onload = async function () {
     div.innerHTML = 'Just a guy who loves to code';
     terminal_output.appendChild(div);
 
+    div = document.createElement('div');
+    div.className = 'text';
+    div.innerHTML = 'help --  to get started';
+    terminal_output.appendChild(div);
+
     // Set side bar width for different screens
-    if(window.innerWidth < window.innerHeight){
+    if (window.innerWidth < window.innerHeight) {
         side_bar_width_percentage = 50;
-    }else{
+    } else {
         side_bar_width_percentage = 20;
     }
 
@@ -226,9 +184,9 @@ window.onload = async function () {
 }
 
 screen.orientation.addEventListener('change', function () {
-    if(window.innerWidth < window.innerHeight){
+    if (window.innerWidth < window.innerHeight) {
         side_bar_width_percentage = 50;
-    }else{
+    } else {
         side_bar_width_percentage = 20;
     }
 })
@@ -255,6 +213,49 @@ terminal_input.addEventListener('keydown', async function (e) {
                 terminal_input.value = '';
                 break;
 
+            case "bold": if (bold) {
+                bold = false;
+                pixedPerChar = 6.5;
+                document.querySelector('body').style.fontWeight = 'normal';
+                div = document.createElement('div');
+                div.className = 'text';
+                div.textContent = 'Text are now normal';
+                terminal_output.appendChild(div);
+            } else {
+                bold = true;
+                pixedPerChar = 8;
+                document.querySelector('body').style.fontWeight = 'bold';
+                div = document.createElement('div');
+                div.className = 'text';
+                div.textContent = 'Text are now bold';
+                terminal_output.appendChild(div);
+            }
+                break;
+            case "animate": if (animate) {
+                animate = false;
+                div = document.createElement('div');
+                div.className = 'text';
+                div.textContent = 'Animation disabled'; 
+                terminal_output.appendChild(div);
+            } else {
+                animate = true;
+                div = document.createElement('div');
+                div.className = 'text';
+                terminal_output.appendChild(div);
+                await addText(div, 'Animation enabled');
+            }
+                break;
+            case "random_theme":
+                    const random_theme_index = Math.floor(Math.random() * two_color_contrast_themes.length);
+                    const random_theme = two_color_contrast_themes[random_theme_index];
+                    const background_color_index = Math.floor(Math.random() * random_theme.length);
+                    const background_color = random_theme[background_color_index];
+                    const text_color = random_theme[(background_color_index+1)%2];
+                    document.documentElement.style.setProperty('--backgroundColor', background_color);
+                    document.documentElement.style.setProperty('--textColor', background_color);
+                    document.documentElement.style.setProperty('--terminalColor', text_color);
+                    break;
+
             default:
 
                 // If the input is an expression, includes +, -, *, /, (, )
@@ -276,9 +277,9 @@ terminal_input.addEventListener('keydown', async function (e) {
                 } else {
                     const data = await readTextFile(terminal_input.value);
                     div = document.createElement('div');
-                    if(terminal_input.value == 'pic'){
+                    if (terminal_input.value == 'pic') {
                         div.className = 'mypic';
-                    }else{
+                    } else {
                         div.className = 'text';
                     }
                     const pre = document.createElement('pre');
