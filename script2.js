@@ -2,57 +2,70 @@ const commands = ['about','pic','education','experience','projects','activites',
 
 // Read the pic.txt file
 async function generateDiv(s){
-    const data = await fetch('./txt/'+s+'.txt');
-    const text = await data.text();
-    const pre = document.createElement('pre');
-    let div = document.createElement('div');
-    if(s == 'pic'){
-        div.className = 'mypic';
-    } else {
-        div.className = 'text';
-    }
-    div.appendChild(pre);
-    pre.textContent = text;
-    
-    // Split long text into multiple lines, 
-    const lines = text.split('\n');
-    let lineNum = 0;
-    let line = '';
-    let myText = '';
+    try{
+        const data = await fetch('./txt/'+s+'.txt');
 
-    // Get the terminal width
-    const terminalWidth = terminal.clientWidth;
-    console.log(terminalWidth);
-    console.log(lines)
-    if(s !== 'pic'){
-        const pixedPerChar = 6
-        for(let i = 0; i < lines.length; i++){
-            if(lines[i].length * pixedPerChar > terminalWidth){
-                const words = lines[i].split(' ');
-                let tillWidth = 0;
-                for(let j = 0; j < words.length; j++){
-                    tillWidth += words[j].length * pixedPerChar;
-                    if(tillWidth > terminalWidth){
-                        myText += line + '\n';
-                        line = words[j] + ' ';
-                        tillWidth = words[j].length * pixedPerChar + pixedPerChar;
-                    } else {
-                        line += words[j] + ' ';
-                        tillWidth += pixedPerChar;
-                    }
-                }
-
-                // If the line is not empty, add it to myText
-                if(line !== ''){
-                    myText += line + '\n';
-                }
-            }else{
-                myText += lines[i] + '\n';
-            }
+        // If the file is not found, return an error message
+        if(data.status != 200){
+            throw new Error('File not found');
         }
-        pre.textContent = myText;
+
+        const text = await data.text();
+        const pre = document.createElement('pre');
+        let div = document.createElement('div');
+        if(s == 'pic'){
+            div.className = 'mypic';
+        } else {
+            div.className = 'text';
+        }
+        div.appendChild(pre);
+        pre.textContent = text;
+        
+        // Split long text into multiple lines, 
+        const lines = text.split('\n');
+        let lineNum = 0;
+        let line = '';
+        let myText = '';
+    
+        // Get the terminal width
+        const terminalWidth = terminal.clientWidth;
+        console.log(terminalWidth);
+        console.log(lines)
+        if(s !== 'pic'){
+            const pixedPerChar = 6
+            for(let i = 0; i < lines.length; i++){
+                if(lines[i].length * pixedPerChar > terminalWidth){
+                    const words = lines[i].split(' ');
+                    let tillWidth = 0;
+                    for(let j = 0; j < words.length; j++){
+                        tillWidth += words[j].length * pixedPerChar;
+                        if(tillWidth > terminalWidth){
+                            myText += line + '\n';
+                            line = words[j] + ' ';
+                            tillWidth = words[j].length * pixedPerChar + pixedPerChar;
+                        } else {
+                            line += words[j] + ' ';
+                            tillWidth += pixedPerChar;
+                        }
+                    }
+    
+                    // If the line is not empty, add it to myText
+                    if(line !== ''){
+                        myText += line + '\n';
+                    }
+                }else{
+                    myText += lines[i] + '\n';
+                }
+            }
+            pre.textContent = myText;
+        }
+        return div;
+    }catch(err){
+        const div = document.createElement('div');
+        div.className = 'text';
+        div.textContent = 'Command not found';
+        return div;
     }
-    return div;
 }
 
 terminal.addEventListener('click', function(){
