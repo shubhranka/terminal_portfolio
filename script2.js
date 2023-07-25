@@ -1,6 +1,8 @@
+const commands = ['about','pic','education']
+
 // Read the pic.txt file
 async function generateDiv(s){
-    const data = await fetch(s+'.txt');
+    const data = await fetch('./txt/'+s+'.txt');
     const text = await data.text();
     const pre = document.createElement('pre');
     let div = document.createElement('div');
