@@ -1,0 +1,9 @@
+Available Commands :
+help        : Display this help message
+about       : Display Information about me
+pic         : Display my profile picture
+education   : Display my education
+experience  : Display my work experience
+projects    : Display my completed and working projects
+activites   : Display my extracurricular activities
+additional  : Display my additional skills
