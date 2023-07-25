@@ -2,6 +2,8 @@ const commands = ['about', 'pic', 'education', 'experience', 'projects', 'activi
 const history = [];
 let upIndex = 0;
 
+let pixedPerChar = 6.5;
+
 // Read the pic.txt file
 async function generateDiv(s) {
     try {
@@ -31,8 +33,7 @@ async function generateDiv(s) {
 
         // Get the terminal width
         const terminalWidth = terminal.clientWidth;
-        if (s !== 'pic') {
-            const pixedPerChar = 6;
+        if (s !== 'pic'){
             for (let i = 0; i < lines.length; i++) {
                 if (lines[i].length * pixedPerChar > terminalWidth) {
                     const words = lines[i].split(' ');
@@ -52,6 +53,7 @@ async function generateDiv(s) {
                     // If the line is not empty, add it to myText
                     if (line !== '') {
                         myText += line + '\n';
+                        line = '';
                     }
                 } else {
                     myText += lines[i] + '\n';
