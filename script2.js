@@ -1,8 +1,127 @@
 const commands = ['about', 'pic', 'education', 'experience', 'projects', 'activities', 'additional', 'help'];
 const history = [];
 let upIndex = 0;
+let animate = false;
+let side_bar_width_percentage = 0;
+let bold = false
 
 let pixedPerChar = 6.5;
+
+// Add text character by character to the given ele
+async function addText(ele, text) {
+    let i = 0
+    const interval = setInterval(function () {
+        if (i < text.length) {
+            ele.textContent += text[i];
+            i++;
+        }
+        terminal_container.scrollTop = terminal_container.scrollHeight;
+    }, 10);
+
+    // Wait until the text is added
+    await new Promise(resolve => setTimeout(resolve, text.length * 10));
+    clearInterval(interval);
+}
+
+bold_button.addEventListener('click', function () {
+    if(bold){
+        bold = false;
+        bold_button.classList.remove('active_button');
+        pixedPerChar = 6.5;
+        document.querySelector('body').style.fontWeight = 'normal';
+    }else{
+        bold = true;
+        bold_button.classList.add('active_button');
+        pixedPerChar = 8;
+        document.querySelector('body').style.fontWeight = 'bold';
+    }
+});
+
+// Button clicks
+animate_button.addEventListener('click', function () {
+    if(animate){
+        animate = false;
+        animate_button.classList.remove('active_button');
+    }else{
+        animate = true;
+        animate_button.classList.add('active_button');
+    }
+});
+
+// Side bar cross work
+side_bar_close_button.addEventListener('click', function () {
+    side_bar.classList.remove("width_20_percent");
+    side_bar.style.right = "-"+side_bar_width_percentage+"%";
+    side_bar_close_button.style.display = "none";
+});
+
+// Side bar circle work
+side_bar_cirlce.addEventListener('click', function () {
+    if (side_bar.classList.contains("width_20_percent")) {
+        side_bar.classList.remove("width_20_percent");
+        side_bar.style.right = "-"+side_bar_width_percentage+"%";
+        side_bar_close_button.style.display = "none";
+    } else {
+        side_bar.classList.add("width_20_percent");
+        side_bar_close_button.style.display = "block";
+        side_bar.style.right = "0px";
+
+    }
+});
+
+// Read the pic.txt file return text
+async function readTextFile(file) {
+    try {
+        const data = await fetch('./txt/' + file + '.txt');
+
+        // If the file is not found, return an error message
+        if (data.status != 200) {
+            throw new Error('File not found');
+        }
+
+        const text = await data.text();
+
+        // Split long text into multiple lines, 
+        const lines = text.split('\n');
+        let line = '';
+        let myText = '';
+
+        // Get the terminal width
+        const terminalWidth = terminal.clientWidth;
+        if (file !== 'pic') {
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].length * pixedPerChar > terminalWidth) {
+                    const words = lines[i].split(' ');
+                    let tillWidth = 0;
+                    for (let j = 0; j < words.length; j++) {
+                        tillWidth += words[j].length * pixedPerChar;
+                        if (tillWidth > terminalWidth) {
+                            myText += line + '\n';
+                            line = words[j] + ' ';
+                            tillWidth = words[j].length * pixedPerChar + pixedPerChar;
+                        } else {
+                            line += words[j] + ' ';
+                            tillWidth += pixedPerChar;
+                        }
+                    }
+                    // If the line is not empty, add it to myText
+                    if (line !== '') {
+                        myText += line + '\n';
+                        line = '';
+                    }
+                } else {
+                    myText += lines[i] + '\n';
+                }
+            }
+            return myText;
+        } else {
+            return text;
+        }
+    } catch (err) {
+        console.log(err);
+        return 'Command not found';
+    }
+}
 
 // Read the pic.txt file
 async function generateDiv(s) {
@@ -33,7 +152,7 @@ async function generateDiv(s) {
 
         // Get the terminal width
         const terminalWidth = terminal.clientWidth;
-        if (s !== 'pic'){
+        if (s !== 'pic') {
             for (let i = 0; i < lines.length; i++) {
                 if (lines[i].length * pixedPerChar > terminalWidth) {
                     const words = lines[i].split(' ');
@@ -72,12 +191,20 @@ async function generateDiv(s) {
 
 terminal_container.addEventListener('click', function () {
     terminal_input.focus();
+    side_bar.classList.remove("width_20_percent");
+    side_bar.style.right = "-"+side_bar_width_percentage+"%";
+    side_bar_close_button.style.display = "none";
 });
 
 window.onload = async function () {
 
     // Create a code tag inside mypic
-    let div = await generateDiv("pic");
+    const data = await readTextFile("pic");
+    const pre = document.createElement('pre');
+    let div = document.createElement('div');
+    div.className = 'mypic';
+    div.appendChild(pre);
+    pre.textContent = data;
     terminal_output.appendChild(div);
 
     // Create a div tag
@@ -85,7 +212,26 @@ window.onload = async function () {
     div.className = 'text';
     div.innerHTML = 'Just a guy who loves to code';
     terminal_output.appendChild(div);
+
+    // Set side bar width for different screens
+    if(window.innerWidth < window.innerHeight){
+        side_bar_width_percentage = 50;
+    }else{
+        side_bar_width_percentage = 20;
+    }
+
+    // Set side bar width
+    side_bar.style.width = side_bar_width_percentage + "%";
+    side_bar.style.right = "-" + side_bar_width_percentage + "%";
 }
+
+screen.orientation.addEventListener('change', function () {
+    if(window.innerWidth < window.innerHeight){
+        side_bar_width_percentage = 50;
+    }else{
+        side_bar_width_percentage = 20;
+    }
+})
 
 terminal_input.addEventListener('keydown', async function (e) {
     if (e.keyCode == 13) {
@@ -110,7 +256,7 @@ terminal_input.addEventListener('keydown', async function (e) {
                 break;
 
             default:
-                
+
                 // If the input is an expression, includes +, -, *, /, (, )
                 const expInclude = ['+', '-', '*', '/', '(', ')'];
                 let isExp = false;
@@ -127,9 +273,22 @@ terminal_input.addEventListener('keydown', async function (e) {
                     console.log(result);
                     div.textContent = result;
                     terminal_output.appendChild(div);
-                }else{
-                    div = await generateDiv(terminal_input.value);
+                } else {
+                    const data = await readTextFile(terminal_input.value);
+                    div = document.createElement('div');
+                    if(terminal_input.value == 'pic'){
+                        div.className = 'mypic';
+                    }else{
+                        div.className = 'text';
+                    }
+                    const pre = document.createElement('pre');
+                    div.appendChild(pre);
                     terminal_output.appendChild(div);
+                    if (animate) {
+                        await addText(pre, data);
+                    } else {
+                        pre.textContent = data;
+                    }
                 }
 
         }
@@ -152,8 +311,8 @@ terminal_input.addEventListener('keydown', async function (e) {
     if (e.keyCode == 38) {
         e.preventDefault();
         if (upIndex < history.length) {
-            terminal_input.value = history[history.length- 1 - upIndex];
-            if(upIndex < history.length-1)
+            terminal_input.value = history[history.length - 1 - upIndex];
+            if (upIndex < history.length - 1)
                 upIndex++;
         }
     }
@@ -164,7 +323,7 @@ terminal_input.addEventListener('keydown', async function (e) {
         if (upIndex > 0) {
             upIndex--;
             terminal_input.value = history[history.length - 1 - upIndex];
-        }else{
+        } else {
             terminal_input.value = '';
         }
     }
@@ -172,6 +331,8 @@ terminal_input.addEventListener('keydown', async function (e) {
     // Scroll to the bottom
     terminal_container.scrollTop = terminal_container.scrollHeight;
 });
+
+
 
 // Expression might contain +, -, *, /, (, ), and space between numbers and operators, efficient way to calculate the result
 function calculateExpression(exp) {

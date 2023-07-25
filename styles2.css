@@ -5,6 +5,14 @@
 }
 body {
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+
+    /* Font fame to code */
+    font-family: monospace;
 }
 .mypic{
     font-size: 7px; 
@@ -17,10 +25,10 @@ body {
     border-radius: 5px;
     padding: 10px;
     padding-top: 20px ;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    /* margin-bottom: 20px;
+    margin-top: 40px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: auto; */
     border: 1px solid #1a1a1a;  
     box-shadow: 0 0 10px #1a1a1a;
     height: 500px;
@@ -92,4 +100,94 @@ body {
 /* Create nice scrollbal */
 #terminal_container::-webkit-scrollbar {
     width: 10px;
+}
+
+.side_bar{
+    background-color: white;
+    position: fixed;
+    top: 0;
+    right: -20%;
+    height: 80%;
+    width: 20%;
+    z-index: 0;
+    transition: 0.5s ease all;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.width_80_percent{
+    width: 80%;
+}
+.width_20_percent{
+    width: 20%;
+}
+
+/* Small circle with smooth double gray colors */
+.small_circle{
+    position: absolute;
+    top: 10px;
+    left: -50px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+    border: 5px solid #1a1a1a;
+    z-index: 1;
+    cursor: pointer;
+}
+
+
+#side_bar_close_button{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: none;
+    /* border: 5px solid #1a1a1a; */
+    z-index: 1;
+    cursor: pointer;
+}
+
+#side_bar_close_button::before, #side_bar_close_button::after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 2px;
+    background-color: #1a1a1a;
+}
+
+#side_bar_close_button::before{
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#side_bar_close_button::after{
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.side_button{
+    border: 2px solid #1a1a1a;
+    padding: 1%;
+    transition: 0.3s all;
+    margin-bottom: 10px;
+}
+
+.side_button:hover{
+    background-color: #1a1a1a;
+    color: white;
+    cursor: pointer;
+}
+
+.active_button{
+    background-color: #1a1a1a;
+    color: white;
+    cursor: pointer;
 }
