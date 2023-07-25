@@ -1,4 +1,4 @@
-const commands = ['about','pic','education']
+const commands = ['about','pic','education','experience','projects','activites','additional'];
 
 // Read the pic.txt file
 async function generateDiv(s){

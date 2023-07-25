@@ -1,0 +1,23 @@
+AMAGI MEDIA  	Bengaluru, IN
+Employer - Innoventes	Feb 2023 - Present
+Software Engineer
+Building communication channels with NodeJs, MongoDB, AWS, PostgreSQL, Socket.IO.
+Optimized query performance by 70% for the data fetching from NonStructural database.
+Relaxed the polling of API calls by adding push service that helps in calling the API when it is necessary.
+Rebuilding and converting NodeJS build services to Go Lang services, using routines and concurrency.
+Working on Event Based Architecture using Kafka and RedisQueue.
+
+FREELANCING	Remote
+Full Stack Developer	Jul 2022 - Feb 2023
+
+AVRL		Austin, TX
+Forward Deployment Engineer	Jan 2022 – Jul 2022
+Conducted web scraping programs in Python to help the firm download public data, including over 10,000 company descriptions and stock quotes, enriching internal data and increasing research efficiency by over 50%.
+Implemented crash reporter and conceptualized findings to fix three biggest causes of crashes; reduced customer support calls by 30%.
+Created web-based promotional collaterals for different campaigns and produced 35% of total automations.
+
+IMPETUS		Banglore, IN
+Associate Software Developer	Aug 2021 – Jan 2022
+Led the transition to a paperless practice by implementing an electronic booking system and a faster, safer accurate business system; reduced cost of labor by 30% and office overhead by 10%.
+Identified key issues and implemented operational improvements that increased productivity by 25% on critical equipment in order to meet customer's increased demand.
+Improved dashboards containing performance metrics to distinguish the demanding data; dashboards transformed by 30+ executives.

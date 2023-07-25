@@ -1,0 +1,26 @@
+JUPYTER CLONE 	https://delightful-churros-a7a2b6.netlify.app/
+A Jupyter-like notebook that runs on Javascript, can serve up to 1000 users, with high UI involvement.
+Code blocks and preview window that displays the code execution, decreasing debugging time by 90%.
+Capable of importing npm packages and webpack the bundles and even rendering html elements inside preview window, increasing engagement by 40% with different frontend libraries, Redux for storing the states.
+Involvement of a text editor, increasing productivity up by 90%.
+Docker deployed notebook can be used by 100 users simultaneously.
+
+SOCKET SHOP APP	https://github.com/shubhranka/social_app_backend
+Built using NodsJs, Express, SocketIO, MongoDB, GraphQL.
+Showing use cases workings of different technologies working in combination decreasing delay time by 50%
+
+DATA STORE	
+Created file-based key-value data store, increasing debugging efficiency by 75%.
+Implemented Serialization and text compression algorithms, decreasing space by 80%.
+
+TEST PORTAL	
+Facilitated in high-level design, handling technical designs and complex application features, handling applications up to 100 per session.
+Prepared as part of the back-end development team using Node.Js and MySQL database, decreasing test dependency by 75%.
+
+ALGORITHM VISUALIZER
+Hands on Graphic Development, targeting the top 10% algorithms used in industrial software development.
+Grabbed the demanding top 10 Javascript canvas libraries, to match the perfect fit.
+
+ROAD SAFETY APP 
+Decreased the dependency of at least 1 person on hazardous moments of accident by 90% using the device.
+Developed high end , server sided application, using the probability matrices, detecting the probability of an accident with accuracy up to 90%.
