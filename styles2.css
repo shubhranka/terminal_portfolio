@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: white;
+}
+.mypic{
+    font-size: 7px; 
+    line-height: 50%;
+    color: gray;
+}
+
+.terminal_container{
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    padding: 10px;
+    padding-top: 20px ;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #1a1a1a;  
+    box-shadow: 0 0 10px #1a1a1a;
+    height: 500px;
+    overflow: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #1a1a1a #1a1a1a;
+    width: 80%;
+
+}
+
+#terminal{
+    background-color: #1a1a1a;
+    /* padding: 20px; */
+    /* white-space: pre; */
+    font-size: 16px;
+    line-height: 1.4;
+    cursor: text;
+    user-select: text;
+    border: 1px solid #1a1a1a;  
+}
+
+#terminal .terminal_output{
+    color: #9a9a9a;
+    font-size: x-small;
+    font-family: monospace;
+    margin: 10px 0px;
+    white-space: code;
+}
+
+#terminal .text{
+    color: #9a9a9a;
+    font-size: x-small;
+    font-family: monospace;
+    margin: 10px 0px;
+    white-space: code;
+}
+
+#typed{
+    color: #9a9a9a;
+    font-size: x-small;
+    font-family: monospace;
+    margin: 10px 0px;
+    white-space: code;
+}
+
+#terminal .terminal_input{
+    color: #9a9a9a;
+    font-size: x-small;
+    font-family: monospace;
+    /* margin: 10px 0px; */
+    height: auto;
+}
+
+
+#terminal .terminal_input input{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #9a9a9a;
+    font-size: x-small;
+    font-family: monospace;
+    /* margin: 10px 0px; */
+    max-width: 70%;
+    caret-shape: block;
+}

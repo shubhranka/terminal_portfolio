@@ -1,0 +1,9 @@
+First Name : Shubhranka 
+Last Name : Varma 
+Email : shubhrankavarma@gmail.com
+Contact : +91 83190 60608
+Locaion : Bengaluru,India
+Designation : Software Developer
+Github: https://github.com/shubhranka
+Codeforces: https://codeforces.com/profile/shubhrankavarma
+About : I am a highly skilled Software Engineer with a passion for full-stack development. With expertise in JavaScript, Node.js, and diverse technologies, I have successfully optimized database performance, built innovative applications, and founded a programming club to promote code training for students.
